@@ -37,4 +37,6 @@ runs:
         role-to-assume: ${{ fromJson(steps.load-vars.outputs.vars).role-to-assume }}
         aws-region: ${{ fromJson(steps.load-vars.outputs.vars).aws-region }}
     - run: env $(cat ${{ inputs.env-path }} | grep -v "#" | xargs) /opt/tools/ci-tools/${{ inputs.script }}
+      continue-on-error: false
       shell: bash
+      

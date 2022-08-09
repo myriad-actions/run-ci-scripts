@@ -6,6 +6,11 @@ inputs:
       The path to the .env file to be loaded as variables
     default: "./.github/.env"
     required: true
+  script-path:
+    description: >
+      Path to the script
+    required: false
+    default: "/opt/tools/ci-tools/"
   script:
     description: >
       The script file to be executed, with parameters.
@@ -36,5 +41,5 @@ runs:
       with:
         role-to-assume: ${{ fromJson(steps.load-vars.outputs.vars).role-to-assume }}
         aws-region: ${{ fromJson(steps.load-vars.outputs.vars).aws-region }}
-    - run: env $(cat ${{ inputs.env-path }} | grep -v "#" | xargs) /opt/tools/ci-tools/${{ inputs.script }}
+    - run: env $(cat ${{ inputs.env-path }} | grep -v "#" | xargs) ${{ inputs.script-path }}${{ inputs.script }}
       shell: bash

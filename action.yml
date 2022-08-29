@@ -41,7 +41,9 @@ runs:
       with:
         role-to-assume: ${{ fromJson(steps.load-vars.outputs.vars).role-to-assume }}
         aws-region: ${{ fromJson(steps.load-vars.outputs.vars).aws-region }}
-    - run: chmod +x ${{ inputs.script-path }}${{ inputs.script }}
+    - run: |
+        ScriptName = echo ${{ inputs.script }} | awk -F ' ' '{ print $1 }'
+        chmod +x ${{ inputs.script-path }}$ScriptName
       shell: bash
     - run: env $(cat ${{ inputs.env-path }} | grep -v "#" | xargs) ${{ inputs.script-path }}${{ inputs.script }}
       shell: bash

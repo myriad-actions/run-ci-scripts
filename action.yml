@@ -1,5 +1,5 @@
 name: 'run ci scripts'
-description: 'read variables from .env file and set them as envinronment variables, before running the bash scripts'
+description: 'run ci scripts'
 inputs:
   script:
     description: >
@@ -7,8 +7,8 @@ inputs:
     required: true
   configure-aws:
     description: >-
-      boolean variable to decide whether to configure aws credentials
-      ATTENTION: in github actions, boolean input is treated as string
+      boolean: whether to configure aws credentials
+      CAUTION: in github actions, boolean input is treated as string
     required: false
     default: false
 

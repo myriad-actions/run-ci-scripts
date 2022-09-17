@@ -5,27 +5,15 @@ inputs:
     description: >
       The script file to be executed, with parameters.
     required: true
-  configure-aws:
-    description: >-
-      boolean: whether to configure aws credentials
-      CAUTION: in github actions, boolean input is treated as string
-    required: false
-    default: false
 
 runs:
   using: "composite"
   steps:
     - name: Configure AWS credentials 
       uses: aws-actions/configure-aws-credentials@master
-      if: ${{ inputs.configure-aws == 'true' }}
       with:
         role-to-assume: ${{ env.AWS-ROLE-TO-ASSUME }}
         aws-region: ${{ env.AWS-REGION }}
-    - name: update file priviledge with +x
-      run: |
-        ScriptName=$(echo ${{ inputs.script }} | awk -F ' ' '{ print $1 }')
-        chmod +x ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/$ScriptName
-      shell: bash
     - name: run script
       run: ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/${{ inputs.script }}
       shell: bash

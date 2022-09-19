@@ -18,18 +18,22 @@ runs:
     - name: get current time
       id: time
       run: echo "::set-output name=current-time::$(date +'%Y%m%d%h%s')"
+      
     - name: Configure AWS credentials 
       uses: aws-actions/configure-aws-credentials@master
       if: ${{ inputs.configure-aws == 'true' }}
       with:
         role-to-assume: ${{ env.AWS-ROLE-TO-ASSUME }}
         role-skip-session-tagging: true
+        role-duration-seconds: 1380
         aws-region: ${{ env.AWS-REGION }}
+
     - name: update file priviledge with +x
       run: |
         ScriptName=$(echo ${{ inputs.script }} | awk -F ' ' '{ print $1 }')
         chmod +x ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/$ScriptName
       shell: bash
+      
     - name: run script
       run: ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/${{ inputs.script }}
       shell: bash

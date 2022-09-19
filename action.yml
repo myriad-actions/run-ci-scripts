@@ -17,8 +17,7 @@ runs:
         
     - name: update file priviledge with +x
       run: |
-        ScriptName=$(echo ${{ inputs.script }} | awk -F ' ' '{ print $1 }')
-        chmod +x ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/$ScriptName
+        chmod +x ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/(${{ inputs.script }} | awk -F ' ' '{ print $1 }')
       shell: bash
       
     - name: run script

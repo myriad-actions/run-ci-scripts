@@ -14,6 +14,13 @@ runs:
       with:
         role-to-assume: ${{ env.AWS-ROLE-TO-ASSUME }}
         aws-region: ${{ env.AWS-REGION }}
+        
+    - name: update file priviledge with +x
+      run: |
+        ScriptName=$(echo ${{ inputs.script }} | awk -F ' ' '{ print $1 }')
+        chmod +x ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/$ScriptName
+      shell: bash
+      
     - name: run script
       run: ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/${{ inputs.script }}
       shell: bash

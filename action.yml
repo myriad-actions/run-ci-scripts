@@ -20,5 +20,5 @@ runs:
         role-to-assume: ${{ env.AWS-ROLE-TO-ASSUME }}
         aws-region: ${{ env.AWS-REGION }}  
     - name: run script
-      run: ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/${{ inputs.script }}
+      run: ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/${{ inputs.script }} ${{ inputs.args }} 
       shell: bash

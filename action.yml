@@ -18,6 +18,8 @@ runs:
       uses: aws-actions/configure-aws-credentials@master
       with:
         role-to-assume: ${{ env.AWS-ROLE-TO-ASSUME }}
+        role-skip-session-tagging: true
+        role-duration-seconds: 1380
         aws-region: ${{ env.AWS-REGION }}  
     - name: run script
       run: ${{ env.CI-SCRIPT-WORKING-DIRECTORY }}/${{ env.CI-SCRIPT-FOLDER-NAME }}/${{ inputs.script }} ${{ inputs.args }} 

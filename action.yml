@@ -17,7 +17,7 @@ runs:
   steps:
     - name: get current time
       id: time
-      run: echo "::set-output name=current-time::$(date +'%Y%m%d%h%s')"
+      run: echo "current-time=$(date +'%Y%m%d%h%s')"  >> $GITHUB_OUTPUT
       
     - name: Configure AWS credentials 
       uses: aws-actions/configure-aws-credentials@master
